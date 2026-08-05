@@ -29,6 +29,7 @@ however, this repository is the authoritative reference location.
 - [Worked Examples]({{ site.baseurl }}/worked-examples/)
 - [Layers]({{ site.baseurl }}/layers/)
 - [Rules]({{ site.baseurl }}/rules/)
+- [Case Studies]({{ site.baseurl }}/case-studies/star-rangers/)
 - [Changelog]({{ site.baseurl }}/changelog/)
 
 ## Testing Architecture
