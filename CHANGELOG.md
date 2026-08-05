@@ -8,7 +8,13 @@ This page is normative and defines ADM semantics.
 
 # Changelog
 
+Version numbers follow [Semantic Versioning](https://semver.org/). While the specification is pre-1.0, minor versions may still refine normative semantics; from 1.0.0 onward, breaking changes to normative content require a major version.
+
 ## [Unreleased]
+
+## [0.1.0] - 2026-08-05
+
+First tagged release of the public ADM specification site: the canonical page structure (layers, rules, principles, testing extensions, ADRs, tutorials, worked examples), the ADM/C4 positioning, and the first case study. The published site now displays its specification version, sourced from `_data/adm.yml` and matching this changelog and the `v0.1.0` git tag.
 
 ### Added
 - Initial public ADM specification site scaffolding and canonical page structure.

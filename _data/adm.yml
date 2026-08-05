@@ -1,0 +1,5 @@
+# Version of the ADM specification published by this site.
+# Read by docs/index.md via site.data.adm.version; bump on each release
+# alongside the CHANGELOG roll and the matching git tag (vX.Y.Z).
+version: "0.1.0"
+released: "2026-08-05"
