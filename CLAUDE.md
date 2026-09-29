@@ -50,3 +50,30 @@ Top-level navigation lives in two places: `_config.yml`'s `header_pages` (the si
 - Per the README: architectural changes must respect ADM layer discipline and semantic rules, and **significant changes should be proposed as ADRs**, not implicit edits.
 - Record changes under `CHANGELOG.md`'s `[Unreleased]`; released sections describe tagged releases and stay as they are.
 - Licensing is split (see `LICENSE.md` for the summary): documentation and explanatory text are **CC BY 4.0** (`LICENSE.docs`); example code, configuration, and prompt templates are **Apache-2.0** (`LICENSE.code`). Know which side a new file falls on.
+
+## Related repositories
+
+The map of Dermot's public repositories and what crosses between them is
+`RELATED-REPOSITORIES.md` in `dermot-r-cochran/star-rangers`; this section
+names only this repository's own neighbours (added 2026-09-29 at his
+direction).
+
+- **`dermot-r-cochran/star-rangers`** is this specification's worked case
+  study (`docs/case-studies/star-rangers.md`): its `CLAUDE.md` is the
+  human-owned governance document the case study classifies against the
+  layers. The relationship runs both ways: that repository's About page names
+  the ADM as lineage under *The engineering behind the record*, and
+  `TestingStrategy.md` here cites its `check-internal-links.js` as the
+  in-account precedent for a link checker. When the governance in that
+  repository changes shape, read the case study again; it is illustrative and
+  dated, but a statement in it that is no longer true of the system it
+  describes is worth correcting.
+- **`dermot-r-cochran/shadow-architect`** is the nearest in subject on the
+  enforcement side: it gates deployed AI systems at defined boundaries, where
+  this document defines architecture. Neither cites the other today.
+- **Siblings by convention:** the account's engineering repositories carry a
+  `TestingStrategy.md` in the same shape, and four of them keep architecture
+  decision records with a guard test each (`swarm`, `careful-memory`,
+  `world-model`, `shadow-architect`); this repository's two ADR families are
+  the specification's own and are not guarded by tests, as `TestingStrategy.md`
+  explains.
