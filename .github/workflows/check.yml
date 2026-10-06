@@ -1,0 +1,33 @@
+name: Check docs sources
+
+# A stdlib-Python source check over the Markdown pages, run on every pull
+# request so editorial breakage is caught at review time rather than at
+# deploy: exactly one front-matter block per page, and every internal link
+# resolves to a file or a declared permalink. See TestingStrategy.md.
+# It does not run the Jekyll build; pages.yml still does that on main only.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Front matter and internal links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run source check
+        run: python .github/scripts/check_docs.py

@@ -12,6 +12,13 @@ Version numbers follow [Semantic Versioning](https://semver.org/). While the spe
 
 ## [Unreleased]
 
+### Fixed
+- ADR index (`/adr/`): removed a stray front-matter fragment left by a merge, which rendered as text and a heading after the GenAI table; the general testing ADRs' heading is now a section heading, so the page has one title.
+- The ADR-index and layer-index links in the Testing Architecture and Traceability Matrix pages now name the index pages, so they resolve on the published site (a bare directory link resolved under the page's own path).
+
+### Documentation
+- Tutorials (`/tutorials/`): each tutorial in the set now links to where it is already practised (Worked Examples, the Star Rangers case study's Violations section, ADM and C4). No new tutorial content.
+
 ## [0.1.0] - 2026-08-05
 
 First tagged release of the public ADM specification site: the canonical page structure (layers, rules, principles, testing extensions, ADRs, tutorials, worked examples), the ADM/C4 positioning, and the first case study. The published site now displays its specification version, sourced from `_data/adm.yml` and matching this changelog and the `v0.1.0` git tag.

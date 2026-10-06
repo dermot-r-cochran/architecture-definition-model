@@ -25,11 +25,8 @@ These ADRs govern the GenAI/LLM Testing Architecture extension.
 | [ADR-GENAI-003](./adr-genai-003-temperature-fixed-in-ci.md) | Temperature Is Fixed During CI | Accepted |
 | [ADR-GENAI-004](./adr-genai-004-safety-over-accuracy.md) | Safety Metrics Outweigh Accuracy | Accepted |
 | [ADR-GENAI-005](./adr-genai-005-semantic-regression.md) | Regression Is Semantic, Not Textual | Accepted |
-title: Architecture Decision Records
-permalink: /adr/
----
 
-# Architecture Decision Records (ADRs)
+## Testing Architecture ADRs
 
 This index lists all recorded architectural decisions for the testing architecture.  
 Each ADR documents a deliberate trade-off, links it to ADM capabilities and constraints, and identifies the risks it addresses.
