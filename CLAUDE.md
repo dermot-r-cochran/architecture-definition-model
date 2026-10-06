@@ -102,8 +102,10 @@ direction).
   enforcement side: it gates deployed AI systems at defined boundaries, where
   this document defines architecture. Neither cites the other today.
 - **Siblings by convention:** the account's engineering repositories carry a
-  `TestingStrategy.md` in the same shape, and four of them keep architecture
-  decision records with a guard test each (`swarm`, `careful-memory`,
-  `world-model`, `shadow-architect`); this repository's two ADR families are
-  the specification's own and are not guarded by tests, as `TestingStrategy.md`
-  explains.
+  `TestingStrategy.md` in the same shape, and five of them keep architecture
+  decision records (`swarm`, `careful-memory`, `world-model`,
+  `shadow-architect` and this one); `swarm` guards three of its four with a
+  named test, `shadow-architect` guards one, and the others say in their own
+  `CLAUDE.md` how far tests reach their decisions; here the two ADR families
+  are the specification's own and no test guards them, as
+  `TestingStrategy.md` explains.
