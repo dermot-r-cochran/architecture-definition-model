@@ -56,4 +56,4 @@ Evidence artifacts must be:
 ## Related Documents
 
 - [Testing Architecture](testing-architecture.md)
-- [ADR Index](../adr/)
+- [ADR Index](../adr/index.md)

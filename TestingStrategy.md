@@ -25,23 +25,37 @@ against, so this file covers only subject 1.
   `actions/jekyll-build-pages`, and deploys to GitHub Pages. The Jekyll build
   is the de facto gate: broken front matter, a bad Liquid tag, or an invalid
   `_config.yml` fails the deploy.
-- Nothing runs on pull requests. A PR with a build-breaking change merges
-  green and fails only when `main` tries to deploy.
+- **`.github/workflows/check.yml`** — on every pull request: runs
+  `.github/scripts/check_docs.py` (stdlib Python, no install) over the
+  Markdown sources of every page under `docs/` and `CHANGELOG.md`. It
+  asserts that each page opens with exactly one front-matter block (no
+  `layout:`/`title:`/`permalink:` line reappears in the body, the shape a
+  merge leaves behind), and that every internal link resolves: a
+  `{{ site.baseurl }}/...` link to a permalink some page declares, a
+  relative link to an existing file. A relative link to a bare directory
+  fails, because `jekyll-relative-links` rewrites only links to files and
+  the directory form breaks under the page's own path. Anchors and external
+  links are not checked. Added 2026-10-06.
+- The Jekyll build itself still does not run on pull requests: a PR that
+  breaks Liquid or `_config.yml` merges green and fails only when `main`
+  tries to deploy.
 
 ## What a spec repo's checks should assert
 
 For a specification, the failure modes are editorial rather than
 computational: a dead internal link between layers, an ADR that no index
 references, a rule page whose permalink changed under a citation, version
-drift between the tag-derived site version and the changelog. None of these
-are caught today.
+drift between the tag-derived site version and the changelog. The source
+check above catches the dead internal link; the rest are not caught today.
 
 ## Known gaps (candidates for next)
 
 - **Run the Jekyll build on pull requests**, not just on `main` — the same
   build step in a PR-triggered job turns deploy-time failures into
   review-time failures at near-zero cost.
-- **An internal link checker** over the built site (or the Markdown sources)
+- ~~An internal link checker~~ — **closed 2026-10-06** at the source level by
+  `check.yml` above; anchors are still unchecked. The original note:
+  **an internal link checker** over the built site (or the Markdown sources)
   — for a document whose value is cross-referenced layers, rules, ADRs and
   case studies, a resolving-links check is the closest thing a spec has to a
   test suite. The `star-rangers` repo's `check-internal-links.js` is the

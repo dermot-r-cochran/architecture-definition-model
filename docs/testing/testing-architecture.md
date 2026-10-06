@@ -195,7 +195,7 @@ Each ADR links back to capabilities, constraints, and risks addressed.
 | [ADR-003](../adr/ADR-003-flaky-tests-fail-pipeline.md) | Flaky tests fail the pipeline instead of being retried | Quality Gates, Regression Detection |
 | [ADR-004](../adr/ADR-004-synthetic-data-lower-environments.md) | Synthetic data is used in lower environments | Data Management |
 
-See [`docs/adr/`](../adr/) for the full ADR index.
+See [`docs/adr/`](../adr/index.md) for the full ADR index.
 
 ---
 
@@ -248,6 +248,6 @@ This flow is derived from the ADM—not the architecture itself.
 
 ## Related Documents
 
-- [ADR Index](../adr/)
+- [ADR Index](../adr/index.md)
 - [Traceability Matrix](traceability-matrix.md)
-- [ADM Layers Overview](../layers/)
+- [ADM Layers Overview](../layers/index.md)
