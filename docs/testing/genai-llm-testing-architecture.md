@@ -4,7 +4,7 @@ title: GenAI/LLM Testing Architecture (ADM Extension)
 permalink: /testing/genai-llm-testing-architecture/
 ---
 
-This page is normative and defines ADM semantics.
+This page is non-normative and provides an illustrative ADM-aligned architecture for GenAI/LLM testing.
 
 # GenAI/LLM Testing Strategy and Automation Architecture (ADM Extension)
 
