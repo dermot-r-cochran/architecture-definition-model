@@ -14,7 +14,7 @@ Do **not** install Jekyll or run a local build. The site is built entirely by CI
 
 - `.github/workflows/pages.yml` runs on every push to `main` (and manual dispatch): it derives the ADM version from the latest git tag and **overwrites `_data/adm.yml`** with it, builds with `actions/jekyll-build-pages` (theme `minima`, kramdown, `baseurl: /architecture-definition-model` — see `_config.yml`), and deploys to GitHub Pages.
 - The Jekyll build is the only automated gate: broken front matter, a bad Liquid tag, or an invalid `_config.yml` fails the deploy.
-- On pull requests only a source check runs (`.github/workflows/check.yml`: one front-matter block per page, internal links resolve; see `TestingStrategy.md`). **The Jekyll build does not run on pull requests**: a Liquid or `_config.yml` break merges green and fails only when `main` deploys — keep that in mind before merging anything touching Liquid.
+- On pull requests only a source check runs (`.github/workflows/check.yml`: one front-matter block per page, internal links resolve, the README's ADR table and testing list match the pages on disk; see `TestingStrategy.md`). Each claim the README makes names the check that proves it, or says "no test yet" — never a check that does not exist. **The Jekyll build does not run on pull requests**: a Liquid or `_config.yml` break merges green and fails only when `main` deploys — keep that in mind before merging anything touching Liquid.
 
 `TestingStrategy.md` covers this in full — what runs, why nothing else does, and the candidate checks (PR builds, an internal link checker, changelog/tag consistency). Read it before adding any check; extend it rather than duplicating its content here.
 
@@ -28,6 +28,7 @@ Every page carries Jekyll front matter (`layout: page`, `title`, `permalink`) an
 
 - `This page is normative and defines ADM semantics.` (layers, rules, principles, the main index, the changelog)
 - `This page is non-normative and indexes recorded architectural decisions.` (the ADR index)
+- `This page is non-normative and records an architectural decision.` (each ADR)
 - `This page is illustrative and non-normative. It does not define ADM semantics.` (case studies)
 
 Keep that line accurate on any new page — the normative/non-normative split is the spec's core discipline.

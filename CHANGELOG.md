@@ -18,6 +18,8 @@ Version numbers follow [Semantic Versioning](https://semver.org/). While the spe
 
 ### Documentation
 - Tutorials (`/tutorials/`): each tutorial in the set now links to where it is already practised (Worked Examples, the Star Rangers case study's Violations section, ADM and C4). No new tutorial content.
+- Normative-status lines (10 October 2026): the Testing Architecture and Testing Traceability Matrix pages now state that they are normative, and each of the nine ADRs states that it is non-normative and records an architectural decision, in the line after the front matter as every other page does. No normative content changed.
+- README: a *What Is Checked* section names the check behind each claim it makes, or says there is none yet; the PR source check now also fails when the README's ADR table or testing list does not match the pages on disk.
 
 ## [0.1.0] - 2026-08-05
 

@@ -35,7 +35,11 @@ against, so this file covers only subject 1.
   relative link to an existing file. A relative link to a bare directory
   fails, because `jekyll-relative-links` rewrites only links to files and
   the directory form breaks under the page's own path. Anchors and external
-  links are not checked. Added 2026-10-06.
+  links are not checked. Added 2026-10-06. Since 10 October 2026 it also
+  fails when the README's ADR table or Testing Architecture list names a
+  different set of pages than `docs/adr/` (index aside) or `docs/testing/`
+  holds — the README's *What Is Checked* section cites this check, and no
+  README claim may cite a check that does not exist.
 - The Jekyll build itself still does not run on pull requests: a PR that
   breaks Liquid or `_config.yml` merges green and fails only when `main`
   tries to deploy.

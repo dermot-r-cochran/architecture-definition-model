@@ -4,6 +4,8 @@ title: "ADR-003: Flaky Tests Fail the Pipeline Instead of Retrying"
 permalink: /adr/ADR-003-flaky-tests-fail-pipeline/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-003: Flaky Tests Fail the Pipeline Instead of Retrying
 
 ## Status
