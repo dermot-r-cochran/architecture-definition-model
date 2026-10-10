@@ -30,6 +30,7 @@ Every page carries Jekyll front matter (`layout: page`, `title`, `permalink`) an
 - `This page is non-normative and indexes recorded architectural decisions.` (the ADR index)
 - `This page is non-normative and records an architectural decision.` (each ADR)
 - `This page is illustrative and non-normative. It does not define ADM semantics.` (case studies)
+- `This page is non-normative and provides ...` (the two GenAI/LLM testing pages, each finishing the sentence with what it provides; kept non-normative by Dermot's ruling of 10 October 2026 because they describe practice that is still settling)
 
 Keep that line accurate on any new page — the normative/non-normative split is the spec's core discipline.
 
@@ -39,7 +40,7 @@ The docs tree:
 
 - `docs/layers/` — the ADM layers: seven **vertical** (Intent, Context, Capability, Service Interface, Execution Unit, Component, Technical Interface) and three **horizontal** (Agent, Constraints, Decisions), indexed in `docs/layers/index.md`. Each layer page follows the same shape: Definition / Allowed Content / Forbidden Content / Common Violations. A new layer follows that shape and is added to the index.
 - `docs/rules/` — Layer Discipline, Derivation, Refusal.
-- `docs/testing/` — the ADM testing-architecture extension (general + GenAI/LLM variants, each with a traceability matrix). This is normative content *of* the specification, governing systems built under ADM — distinct from testing *of* this repo (that's `TestingStrategy.md`).
+- `docs/testing/` — the ADM testing-architecture extension (general + GenAI/LLM variants, each with a traceability matrix). The general testing pages are normative content *of* the specification (the two GenAI/LLM pages are the stated exception, non-normative since 10 October 2026), governing systems built under ADM — distinct from testing *of* this repo (that's `TestingStrategy.md`).
 - `docs/adr/` — two ADR families: general testing ADRs (`ADR-NNN-slug.md`, e.g. ADR-001…004) and GenAI testing ADRs (`adr-genai-NNN-slug.md`, GENAI-001…005) — note the differing filename casing, and that GenAI permalinks drop the `adr-` filename prefix (`/adr/genai-001-.../`). `docs/adr/index.md` carries a table per family plus the ADR template (Status / Context / Decision / Consequences / Linked ADM Elements). A new ADR follows the template, links the ADM capabilities/constraints/risks it touches, and is added to its family's table in the index **and** to the README's ADR table (and `docs/index.md` lists the GenAI ones).
 - `docs/case-studies/` — illustrative, non-normative. `star-rangers.md` is the model: statements from a real system classified against **existing ADM layers only**, with rationale per assignment. A new case study follows that pattern and gets a link from `docs/index.md`'s navigation.
 - `docs/adm-and-c4.md` — positioning: ADM is authoritative/normative, C4 is descriptive/derived.
