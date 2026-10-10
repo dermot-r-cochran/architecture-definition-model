@@ -4,6 +4,8 @@ title: "ADR-002: Model Evaluation Blocks Deployment"
 permalink: /adr/ADR-002-model-evaluation-blocks-deployment/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-002: Model Evaluation Blocks Deployment
 
 ## Status

@@ -4,6 +4,8 @@ title: "ADR-GENAI-002: Human Judgment Is Required for Quality"
 permalink: /adr/genai-002-human-judgment-required/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-GENAI-002: Human Judgment Is Required for Quality
 
 **Status:** Accepted  

@@ -4,6 +4,8 @@ title: Testing Traceability Matrix
 permalink: /testing/traceability-matrix/
 ---
 
+This page is normative and defines ADM semantics.
+
 # Testing Traceability Matrix
 
 This matrix maps capabilities to constraints, risks, and the evidence artifacts that demonstrate compliance.  

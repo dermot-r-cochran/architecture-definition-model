@@ -4,6 +4,8 @@ title: Testing Architecture (ADM-Aligned)
 permalink: /testing/testing-architecture/
 ---
 
+This page is normative and defines ADM semantics.
+
 # Testing Strategy and Architecture for Test Automation (ADM-Aligned)
 
 This document is a formal architectural artifact.  

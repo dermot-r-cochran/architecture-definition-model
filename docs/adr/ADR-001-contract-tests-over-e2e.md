@@ -4,6 +4,8 @@ title: "ADR-001: Contract Tests Favored Over E2E in CI"
 permalink: /adr/ADR-001-contract-tests-over-e2e/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-001: Contract Tests Favored Over E2E in CI
 
 ## Status

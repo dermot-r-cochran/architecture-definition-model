@@ -4,6 +4,8 @@ title: "ADR-GENAI-004: Safety Metrics Outweigh Accuracy"
 permalink: /adr/genai-004-safety-over-accuracy/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-GENAI-004: Safety Metrics Outweigh Accuracy
 
 **Status:** Accepted  

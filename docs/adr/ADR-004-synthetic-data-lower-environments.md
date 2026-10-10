@@ -4,6 +4,8 @@ title: "ADR-004: Synthetic Data Used in Lower Environments"
 permalink: /adr/ADR-004-synthetic-data-lower-environments/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-004: Synthetic Data Used in Lower Environments
 
 ## Status

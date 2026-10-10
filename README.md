@@ -92,6 +92,20 @@ Recorded trade-off decisions are under [`docs/adr/`](docs/adr/):
 
 ---
 
+## What Is Checked
+
+This repository is a specification, so what this README claims is about its
+documents rather than any behaviour. Each claim names the check that proves
+it, or says there is none yet.
+
+| Claim | Proved by |
+|---|---|
+| The Testing Architecture list names every page under `docs/testing/` | `.github/scripts/check_docs.py`, `readme_counts` (run on every pull request by `check.yml`) |
+| The ADR table names every recorded decision under `docs/adr/` | `.github/scripts/check_docs.py`, `readme_counts` |
+| Canonical definitions and non-authoritative examples are told apart (*Scope* above): each page under `docs/` says in its first line whether it is normative | no test yet |
+
+---
+
 ## License
 
 This material is made available under the licenses below **to the extent

@@ -4,6 +4,8 @@ title: "ADR-GENAI-001: BLEU/ROUGE Are Insufficient Alone"
 permalink: /adr/genai-001-bleu-rouge-insufficient/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-GENAI-001: BLEU/ROUGE Are Insufficient Alone
 
 **Status:** Accepted  

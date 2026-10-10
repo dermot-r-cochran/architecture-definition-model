@@ -4,6 +4,8 @@ title: "ADR-GENAI-003: Temperature Is Fixed During CI"
 permalink: /adr/genai-003-temperature-fixed-in-ci/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-GENAI-003: Temperature Is Fixed During CI
 
 **Status:** Accepted  

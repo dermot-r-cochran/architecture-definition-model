@@ -10,6 +10,10 @@ Two checks, both on the Markdown sources rather than the built site:
    permalink some page declares, and a relative link must name an existing
    file (jekyll-relative-links rewrites links to .md files; a link to a bare
    directory is not rewritten and breaks on the published site).
+3. The README's counts match the disk: its ADR table links every ADR page
+   under docs/adr/ (index.md aside) and nothing else, and its Testing
+   Architecture list links every page under docs/testing/ and nothing else
+   (added 10 October 2026).
 
 External links (http, https, mailto) and in-page anchors are not checked.
 Run from anywhere: python .github/scripts/check_docs.py
@@ -64,8 +68,33 @@ def normalise(url: str) -> str:
     return "/" + url.strip("/") + "/" if url.strip("/") else "/"
 
 
+def readme_counts() -> list[str]:
+    """The README's ADR table and testing list name exactly the pages on disk."""
+    readme = ROOT / "README.md"
+    if not readme.exists():
+        return []
+    text = readme.read_text(encoding="utf-8")
+    linked = {match.group(1).split("#", 1)[0] for match in LINK.finditer(text)}
+    errors = []
+    for folder, what in (("docs/adr", "ADR table"), ("docs/testing", "Testing Architecture list")):
+        on_disk = {
+            path.relative_to(ROOT).as_posix()
+            for path in (ROOT / folder).glob("*.md")
+            if path.name != "index.md"
+        }
+        stated = {target for target in linked if target.startswith(folder + "/") and target.endswith(".md")}
+        stated.discard(folder + "/index.md")
+        if len(stated) != len(on_disk):
+            errors.append(f"README.md: {what} lists {len(stated)} pages; {folder}/ holds {len(on_disk)}")
+        for missing in sorted(on_disk - stated):
+            errors.append(f"README.md: {what} omits {missing}")
+        for extra in sorted(stated - on_disk):
+            errors.append(f"README.md: {what} links {extra}, which is not on disk")
+    return errors
+
+
 def main() -> int:
-    errors: list[str] = []
+    errors: list[str] = readme_counts()
     permalinks: set[str] = set()
     bodies: dict[Path, list[tuple[int, str]]] = {}
 

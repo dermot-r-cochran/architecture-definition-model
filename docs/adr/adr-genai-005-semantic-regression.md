@@ -4,6 +4,8 @@ title: "ADR-GENAI-005: Regression Is Semantic, Not Textual"
 permalink: /adr/genai-005-semantic-regression/
 ---
 
+This page is non-normative and records an architectural decision.
+
 # ADR-GENAI-005: Regression Is Semantic, Not Textual
 
 **Status:** Accepted  
