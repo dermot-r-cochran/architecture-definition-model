@@ -4,7 +4,7 @@ title: GenAI Traceability Matrix
 permalink: /testing/genai-traceability-matrix/
 ---
 
-This page is non-normative and provides a governance-oriented traceability matrix for GenAI/LLM testing.
+This page is normative and defines ADM semantics.
 
 # GenAI Traceability Matrix
 

@@ -26,7 +26,7 @@ The site's displayed version (`docs/index.md` reads `site.data.adm.version`) com
 
 Every page carries Jekyll front matter (`layout: page`, `title`, `permalink`) and, immediately after it, a **normative-status line** — one of:
 
-- `This page is normative and defines ADM semantics.` (layers, rules, principles, the main index, the changelog)
+- `This page is normative and defines ADM semantics.` (layers, rules, principles, the main index, the changelog, and every page under `docs/testing/`, the GenAI pages included since 10 October 2026)
 - `This page is non-normative and indexes recorded architectural decisions.` (the ADR index)
 - `This page is non-normative and records an architectural decision.` (each ADR)
 - `This page is illustrative and non-normative. It does not define ADM semantics.` (case studies)
