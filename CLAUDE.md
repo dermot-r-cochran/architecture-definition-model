@@ -53,6 +53,18 @@ Top-level navigation lives in two places: `_config.yml`'s `header_pages` (the si
 - Record changes under `CHANGELOG.md`'s `[Unreleased]`; released sections describe tagged releases and stay as they are.
 - Licensing is split (see `LICENSE.md` for the summary): documentation and explanatory text are **CC BY 4.0** (`LICENSE.docs`); example code, configuration, and prompt templates are **Apache-2.0** (`LICENSE.code`). Know which side a new file falls on.
 
+## Which model does which work
+
+Dermot's direction, 2026-10-11: the account-wide split recorded in `star-rangers`' `CLAUDE.md`, applied here. Opus is the default. Fable is kept for narrative prose and image prompts and has no work in this repository.
+
+- **Haiku: reading and trivial fixes.** Read-only searches, broken internal links, front-matter fixes and table drift the PR source check reports.
+- **Sonnet: code and tests.** Changes to `.github/workflows/` and the source-check script. (No application code lives here.)
+- **Opus: the protected parts.** Every page's content: the normative semantics, the ADRs, each page's normative-status line, and the README's disclaimer and IP notice. No model below Opus edits these, even where a gate would catch the mistake.
+- **Opus reviews and approves** a Haiku or Sonnet subagent's diff, and it merges when CI is green.
+- **Chrome extension:** Opus for anything that signs in, submits or posts; Sonnet for read-only browsing; never Haiku. The extension acts in Dermot's own Chrome with his sign-ins, and a web page can carry text written to steer the model.
+
+A subagent runs on its parent session's model unless the call names another, so name the model on every delegation.
+
 ## Work that needs the desktop
 
 A Claude Code cloud session has this repository in a fresh container and
