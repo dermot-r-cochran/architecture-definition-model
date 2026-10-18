@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The canonical public reference for the **Architecture Definition Model (ADM)** — a layered framework for defining, governing, and enforcing the architecture of Generative AI systems. This is a specification repo, not a program: there is no application code, no package.json, and nothing to unit-test. The deliverable is a Jekyll-rendered GitHub Pages site built from the Markdown under `docs/`.
 
-Published in a personal capacity by Dermot Cochran; the README's disclaimer and IP notice (rights, if any, retained by UL Solutions) are load-bearing text — don't edit or remove them casually.
+Published in a personal capacity by Dermot Cochran; the copyright is his (Dermot, 18 October 2026: ADM is his own idea, inspired by his years of software engineering and never adopted or used by any employer). The README's conditional disclaimer (rights that *may arise from my employment* retained by UL Solutions, as applicable) is load-bearing text, kept at his choice the same day: don't edit or remove it casually, and don't reintroduce an unconditional UL rights line.
 
 ## Build and deploy
 
