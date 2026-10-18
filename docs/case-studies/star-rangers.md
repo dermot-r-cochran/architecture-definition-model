@@ -1,22 +1,24 @@
 ---
 layout: page
-title: "Case Study: Star Rangers — a Generative-AI-Coauthored Publishing System"
+title: "Case Study: Fian Ilchruinne — Governing an AI-Assisted Publishing System"
 permalink: /case-studies/star-rangers/
 ---
 
 This page is illustrative and non-normative. It does not define ADM semantics.
 
-# Case Study: Star Rangers — a Generative-AI-Coauthored Publishing System
+# Case Study: Fian Ilchruinne — Governing an AI-Assisted Publishing System
 
 ## The system
 
-[Star Rangers / *Fian Ilchruinne*](https://github.com/dermot-r-cochran/star-rangers)
-is an Eleventy-based interactive novel published from one repository to several
-independently branded production domains. It is maintained jointly by a human
-author and a generative AI agent (Claude Code) working directly against the
-repository — drafting prose, performing mechanical fixes, and evolving the
-engine — under a written governance document (`CLAUDE.md`) that functions as
-the system's human-owned architecture definition.
+[*Fian Ilchruinne*](https://github.com/dermot-r-cochran/star-rangers) is a hard
+science-fiction novel told from many viewpoints. Its world, ideas and direction
+are the author's; its prose, much of it drafted with Claude Code, is approved by
+him as the work's own voice. This page is not a study of the novel. It studies
+the system around it: the Eleventy engine that publishes one record from one
+repository to several independently branded production domains, and the written
+agreement (`CLAUDE.md`) under which the author directs and the agent drafts,
+fixes and builds under his review. That agreement functions as the system's
+human-owned architecture definition.
 
 Two properties make it a useful ADM case study:
 
