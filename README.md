@@ -36,7 +36,7 @@ This project is published in a personal capacity.
 
 Any intellectual property rights that may arise from my employment are retained by
 **UL Solutions**, as applicable. No endorsement, sponsorship, or approval by
-UL Solutions is implied.
+UL Solutions is implied. ADM was never adopted or used by any of my employers.
 
 The views, ideas, and materials expressed here are my own and are provided
 for informational purposes only.
@@ -116,9 +116,6 @@ permitted by applicable intellectual property rights**.
 
 - Example code, configuration, and prompt templates are licensed under  
   **Apache License, Version 2.0**
-
-Nothing in this repository grants rights to any intellectual property
-owned by UL Solutions beyond what is permitted by law.
 
 See `LICENSE.docs` and `LICENSE.code` for full license texts.
 
