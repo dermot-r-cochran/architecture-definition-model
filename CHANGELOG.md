@@ -17,6 +17,7 @@ Version numbers follow [Semantic Versioning](https://semver.org/). While the spe
 - The ADR-index and layer-index links in the Testing Architecture and Traceability Matrix pages now name the index pages, so they resolve on the published site (a bare directory link resolved under the page's own path).
 
 ### Documentation
+- Case study (`/case-studies/star-rangers/`): retitled under the work's current title, *Fian Ilchruinne*, and the opening reworded to say plainly that the page studies the publishing system and its governance, not the novel, whose world, ideas and direction are the author's and whose prose he has approved as its own voice. The permalink is unchanged.
 - Tutorials (`/tutorials/`): each tutorial in the set now links to where it is already practised (Worked Examples, the Star Rangers case study's Violations section, ADM and C4). No new tutorial content.
 - Normative-status lines (10 October 2026): the Testing Architecture and Testing Traceability Matrix pages now state that they are normative, and each of the nine ADRs states that it is non-normative and records an architectural decision, in the line after the front matter as every other page does. No normative content changed.
 - README: a *What Is Checked* section names the check behind each claim it makes, or says there is none yet; the PR source check now also fails when the README's ADR table or testing list does not match the pages on disk.
