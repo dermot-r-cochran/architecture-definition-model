@@ -39,7 +39,13 @@ against, so this file covers only subject 1.
   fails when the README's ADR table or Testing Architecture list names a
   different set of pages than `docs/adr/` (index aside) or `docs/testing/`
   holds — the README's *What Is Checked* section cites this check, and no
-  README claim may cite a check that does not exist.
+  README claim may cite a check that does not exist. Since 26 October 2026 it
+  also fails when a page's first line after the front matter is not one of
+  the recognised normative-status lines (listed in `CLAUDE.md` and in the
+  script's `STATUS_LINES`), which closed the README's last "no test yet". The
+  check proves presence and form; whether a page's status is the right one
+  stays a judgement, so a new form of the line is a convention change made in
+  both places.
 - The Jekyll build itself still does not run on pull requests: a PR that
   breaks Liquid or `_config.yml` merges green and fails only when `main`
   tries to deploy.
@@ -50,7 +56,8 @@ For a specification, the failure modes are editorial rather than
 computational: a dead internal link between layers, an ADR that no index
 references, a rule page whose permalink changed under a citation, version
 drift between the tag-derived site version and the changelog. The source
-check above catches the dead internal link; the rest are not caught today.
+check above catches the dead internal link and the missing normative-status
+line; the rest are not caught today.
 
 ## Known gaps (candidates for next)
 

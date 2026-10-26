@@ -1,6 +1,6 @@
 """Source check for the ADM site's Markdown pages (stdlib only).
 
-Two checks, both on the Markdown sources rather than the built site:
+Four checks, all on the Markdown sources rather than the built site:
 
 1. Every page under docs/ (and CHANGELOG.md) opens with exactly one Jekyll
    front-matter block, and no front-matter key line (layout:, title:,
@@ -14,6 +14,13 @@ Two checks, both on the Markdown sources rather than the built site:
    under docs/adr/ (index.md aside) and nothing else, and its Testing
    Architecture list links every page under docs/testing/ and nothing else
    (added 10 October 2026).
+4. Every page carries a normative-status line: the first non-blank line after
+   the front matter is one of the recognised forms listed in CLAUDE.md
+   (normative; non-normative index; non-normative decision record;
+   illustrative case study; non-normative "provides ..."). The check proves
+   the line is present and well-formed; whether a page's chosen status is the
+   right one stays a judgement, which is why the forms are few and fixed
+   (added 26 October 2026).
 
 External links (http, https, mailto) and in-page anchors are not checked.
 Run from anywhere: python .github/scripts/check_docs.py
@@ -31,6 +38,16 @@ INLINE_CODE = re.compile(r"`[^`\n]*`")
 LINK = re.compile(r"\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 BASEURL = re.compile(r"^\{\{\s*site\.baseurl\s*\}\}")
 SCHEME = re.compile(r"^[a-z][a-z0-9+.-]*:", re.IGNORECASE)
+
+# The recognised normative-status lines (CLAUDE.md, "Structure and
+# conventions"). A new form is a convention change: add it here and there.
+STATUS_LINES = (
+    re.compile(r"^This page is normative and defines ADM semantics\.$"),
+    re.compile(r"^This page is non-normative and indexes recorded architectural decisions\.$"),
+    re.compile(r"^This page is non-normative and records an architectural decision\.$"),
+    re.compile(r"^This page is illustrative and non-normative\. It does not define ADM semantics\.$"),
+    re.compile(r"^This page is non-normative and provides \S.*\.$"),
+)
 
 
 def pages() -> list[Path]:
@@ -66,6 +83,18 @@ def prose_lines(lines: list[str], first: int) -> list[tuple[int, str]]:
 
 def normalise(url: str) -> str:
     return "/" + url.strip("/") + "/" if url.strip("/") else "/"
+
+
+def status_line(rel: str, lines: list[str], first: int) -> str | None:
+    """An error if the page's first body line is not a recognised status line."""
+    for number, line in enumerate(lines, start=first):
+        text = line.strip()
+        if not text:
+            continue
+        if any(form.match(text) for form in STATUS_LINES):
+            return None
+        return f"{rel}:{number}: first line after the front matter is not a recognised normative-status line"
+    return f"{rel}: has no body after the front matter, so no normative-status line"
 
 
 def readme_counts() -> list[str]:
@@ -108,6 +137,9 @@ def main() -> int:
         match = re.search(r"^permalink\s*:\s*(\S+)", front, re.MULTILINE)
         if match:
             permalinks.add(normalise(match.group(1)))
+        status = status_line(rel, lines, first)
+        if status:
+            errors.append(status)
         prose = prose_lines(lines, first)
         for number, line in prose:
             stray = FRONT_KEY.match(line)
