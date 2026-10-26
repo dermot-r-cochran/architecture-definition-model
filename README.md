@@ -102,7 +102,7 @@ it, or says there is none yet.
 |---|---|
 | The Testing Architecture list names every page under `docs/testing/` | `.github/scripts/check_docs.py`, `readme_counts` (run on every pull request by `check.yml`) |
 | The ADR table names every recorded decision under `docs/adr/` | `.github/scripts/check_docs.py`, `readme_counts` |
-| Canonical definitions and non-authoritative examples are told apart (*Scope* above): each page under `docs/` says in its first line whether it is normative | no test yet |
+| Canonical definitions and non-authoritative examples are told apart (*Scope* above): each page under `docs/` says in its first line whether it is normative | `.github/scripts/check_docs.py`, `status_line` (the line is present and in a recognised form; whether the status chosen is the right one is still a judgement) |
 
 ---
 
