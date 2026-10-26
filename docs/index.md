@@ -34,19 +34,23 @@ however, this repository is the authoritative reference location.
 
 ## Testing Architecture
 
+- [Testing Architecture (ADM-Aligned)]({{ site.baseurl }}/testing/testing-architecture/)
+- [Traceability Matrix]({{ site.baseurl }}/testing/traceability-matrix/)
 - [GenAI/LLM Testing Architecture]({{ site.baseurl }}/testing/genai-llm-testing-architecture/) — ADM extension for LLM-powered systems
 - [GenAI Traceability Matrix]({{ site.baseurl }}/testing/genai-traceability-matrix/) — Capabilities → Constraints → Risks → Evidence
 
 ## Architecture Decision Records
 
 - [ADR Index]({{ site.baseurl }}/adr/) — All recorded architectural trade-off decisions
+- [ADR-001: Contract Tests Favored Over E2E in CI]({{ site.baseurl }}/adr/ADR-001-contract-tests-over-e2e/)
+- [ADR-002: Model Evaluation Blocks Deployment]({{ site.baseurl }}/adr/ADR-002-model-evaluation-blocks-deployment/)
+- [ADR-003: Flaky Tests Fail the Pipeline Instead of Retrying]({{ site.baseurl }}/adr/ADR-003-flaky-tests-fail-pipeline/)
+- [ADR-004: Synthetic Data Used in Lower Environments]({{ site.baseurl }}/adr/ADR-004-synthetic-data-lower-environments/)
 - [ADR-GENAI-001: BLEU/ROUGE Insufficient]({{ site.baseurl }}/adr/genai-001-bleu-rouge-insufficient/)
 - [ADR-GENAI-002: Human Judgment Required]({{ site.baseurl }}/adr/genai-002-human-judgment-required/)
 - [ADR-GENAI-003: Temperature Fixed in CI]({{ site.baseurl }}/adr/genai-003-temperature-fixed-in-ci/)
 - [ADR-GENAI-004: Safety Over Accuracy]({{ site.baseurl }}/adr/genai-004-safety-over-accuracy/)
 - [ADR-GENAI-005: Semantic Regression]({{ site.baseurl }}/adr/genai-005-semantic-regression/)
-- [Testing Architecture (ADM-Aligned)]({{ site.baseurl }}/testing/testing-architecture/)
-- [Traceability Matrix]({{ site.baseurl }}/testing/traceability-matrix/)
 - [Architecture Decision Records (ADRs)]({{ site.baseurl }}/adr/)
 
 ## Copyright and License
