@@ -115,11 +115,14 @@ direction).
 - **`dermot-r-cochran/shadow-architect`** is the nearest in subject on the
   enforcement side: it gates deployed AI systems at defined boundaries, where
   this document defines architecture. Neither cites the other today.
-- **Siblings by convention:** the account's engineering repositories carry a
-  `TestingStrategy.md` in the same shape, and five of them keep architecture
-  decision records (`swarm`, `careful-memory`, `world-model`,
-  `shadow-architect` and this one); `swarm` guards three of its four with a
-  named test, `shadow-architect` guards one, and the others say in their own
-  `CLAUDE.md` how far tests reach their decisions; here the two ADR families
-  are the specification's own and no test guards them, as
-  `TestingStrategy.md` explains.
+- **Siblings by convention:** the account's engineering repositories share a
+  way of working, not code: a `TestingStrategy.md` that keeps testing
+  mechanics apart from the repository's rules, a CI coverage ratchet at the
+  measured baseline, and architecture decision records guarded by named tests
+  where a repository keeps them. Which repositories follow which, and how far
+  each one's tests reach its decisions, is listed once, in the map's *Siblings
+  by convention* section, and not restated here: counts copied into several
+  files drift (this paragraph said `swarm` guarded "three of its four" ADRs
+  after its fifth guard had landed). Here the two ADR families are the
+  specification's own and no test guards them, as `TestingStrategy.md`
+  explains.

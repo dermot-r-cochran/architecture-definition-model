@@ -106,6 +106,14 @@ it, or says there is none yet.
 
 ---
 
+## Related
+
+- [star-rangers](https://github.com/dermot-r-cochran/star-rangers) is this specification's worked case study (`docs/case-studies/star-rangers.md`), and its About page names the ADM as lineage.
+- [shadow-architect](https://github.com/dermot-r-cochran/shadow-architect) is the nearest in subject on the enforcement side: it gates deployed AI systems at defined boundaries, where this document defines architecture.
+- How these and the author's other public repositories relate is kept in one map: [RELATED-REPOSITORIES.md](https://github.com/dermot-r-cochran/star-rangers/blob/main/RELATED-REPOSITORIES.md).
+
+---
+
 ## License
 
 This material is made available under the licenses below **to the extent
