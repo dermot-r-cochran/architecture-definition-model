@@ -142,3 +142,12 @@ What limits govern the system?
 
 - The system must not invent unsupported claims
 - High-risk advice must be reviewed or escalated
+
+### Decisions
+What deliberate choices were made, and why?
+
+- Uncertain cases are escalated to a human rather than answered with a hedge, because answers may affect regulated product usage (Context) and the system exists to escalate uncertain cases (Intent)
+- Answers are composed only from retrieved product guidance, because unsupported claims are forbidden (Constraints) and a retrieved source can be audited
+- Every exchange is logged before the answer is shown, accepting the added latency, because responses must be logged for review (Context)
+
+Each decision references elements already placed in the layers above and defines none of its own; that is what keeps it in the Decisions layer.
