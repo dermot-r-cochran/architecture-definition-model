@@ -55,8 +55,9 @@ Top-level navigation lives in two places: `_config.yml`'s `header_pages` (the si
 
 ## Which model does which work
 
-Dermot's direction, 2026-10-11: the account-wide split recorded in `star-rangers`' `CLAUDE.md`, applied here. Opus is the default. Fable is kept for narrative prose and image prompts and has no work in this repository.
+Dermot's direction, 2026-10-11: the account-wide split recorded in `star-rangers`' `CLAUDE.md`, applied here. Opus is the default. Fable is kept for narrative prose and image prompts and has no work in this repository, with one exception: a whole-repo next-improvement read.
 
+- **Fable: whole-repo next-improvement reads.** Fable may read the whole repository and propose its next improvement (the `next-improvement` question); that is reading and proposing, and it widens no one's write reservations, so the protected parts stay Opus's (Dermot, 1 November 2026, "Accept all as recommended").
 - **Haiku: reading and trivial fixes.** Read-only searches, broken internal links, front-matter fixes and table drift the PR source check reports.
 - **Sonnet: code and tests.** Changes to `.github/workflows/` and the source-check script. (No application code lives here.)
 - **Opus: the protected parts.** Every page's content: the normative semantics, the ADRs, each page's normative-status line, and the README's disclaimer and IP notice. No model below Opus edits these, even where a gate would catch the mistake.
