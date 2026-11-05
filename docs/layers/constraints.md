@@ -24,3 +24,7 @@ Non-structural limitations (regulatory, organizational, technical).
 ## Common Violations
 - Encoding structure as a constraint
 - Redefining layer semantics through constraints
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#constraints): the AI support assistant's Constraints
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

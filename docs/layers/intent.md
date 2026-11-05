@@ -24,3 +24,7 @@ Why the system exists; goals and quality attributes.
 ## Common Violations
 - Mixing Intent with executable structure
 - Defining technical interfaces in Intent
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#intent): the AI support assistant's Intent
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

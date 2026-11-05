@@ -24,3 +24,7 @@ Technology-specific bindings (protocols, databases, runtimes).
 ## Common Violations
 - Replacing service contracts with technology internals
 - Defining architecture structure in technology bindings
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#technical-interface): the AI support assistant's Technical Interface
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

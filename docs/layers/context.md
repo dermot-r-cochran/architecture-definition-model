@@ -24,3 +24,7 @@ External actors, users, and systems.
 ## Common Violations
 - Modeling internal components as context actors
 - Introducing runtime internals in Context
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#context): the AI support assistant's Context
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)
