@@ -24,3 +24,7 @@ An independently deployable and running unit.
 ## Common Violations
 - Modeling non-deployable concepts as Execution Units
 - Collapsing multiple layers into one unit definition
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#execution-unit): the AI support assistant's Execution Unit
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

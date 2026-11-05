@@ -24,3 +24,7 @@ What must be possible (non-executable).
 ## Common Violations
 - Representing executable code as Capability
 - Describing deployment behavior as Capability
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#capability): the AI support assistant's Capability
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

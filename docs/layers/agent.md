@@ -24,3 +24,7 @@ Autonomous behavior or control logic (not structural).
 ## Common Violations
 - Using Agent to define architecture structure
 - Treating Agent as a vertical structural layer
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#agent): the AI support assistant's Agent
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

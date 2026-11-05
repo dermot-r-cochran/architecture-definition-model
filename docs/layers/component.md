@@ -24,3 +24,7 @@ Internal structure within an Execution Unit only.
 ## Common Violations
 - Exposing components as external contracts
 - Defining components outside an Execution Unit
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#component): the AI support assistant's Component
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)

@@ -24,3 +24,8 @@ Recorded choices (ADRs) that reference ADM elements but do not redefine them.
 ## Common Violations
 - Using ADRs to introduce new layers
 - Using ADRs to replace ADM definitions
+
+## See it in use
+- [Running example]({{ site.baseurl }}/overview/#decisions): the AI support assistant's Decisions
+- [Worked Examples]({{ site.baseurl }}/worked-examples/)
+- [ADR Index]({{ site.baseurl }}/adr/)
