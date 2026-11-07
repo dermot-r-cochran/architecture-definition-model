@@ -51,7 +51,6 @@ however, this repository is the authoritative reference location.
 - [ADR-GENAI-003: Temperature Fixed in CI]({{ site.baseurl }}/adr/genai-003-temperature-fixed-in-ci/)
 - [ADR-GENAI-004: Safety Over Accuracy]({{ site.baseurl }}/adr/genai-004-safety-over-accuracy/)
 - [ADR-GENAI-005: Semantic Regression]({{ site.baseurl }}/adr/genai-005-semantic-regression/)
-- [Architecture Decision Records (ADRs)]({{ site.baseurl }}/adr/)
 
 ## Copyright and License
 Copyright © 2026 Dermot Cochran.
