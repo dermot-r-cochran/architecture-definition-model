@@ -12,6 +12,9 @@ Version numbers follow [Semantic Versioning](https://semver.org/). While the spe
 
 ## [Unreleased]
 
+### Added
+- Context layer (`/layers/context/`, 7 November 2026): *Allowed Content* now lists *External conditions and obligations the system operates under*, the kind of statement the Overview's running example already places in Context (answers may affect regulated product usage; responses must be logged for review). The definition, the other allowed items and the forbidden list are unchanged.
+
 ### Fixed
 - ADR index (`/adr/`): removed a stray front-matter fragment left by a merge, which rendered as text and a heading after the GenAI table; the general testing ADRs' heading is now a section heading, so the page has one title.
 - The ADR-index and layer-index links in the Testing Architecture and Traceability Matrix pages now name the index pages, so they resolve on the published site (a bare directory link resolved under the page's own path).
