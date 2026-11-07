@@ -1,10 +1,16 @@
 name: Check docs sources
 
-# A stdlib-Python source check over the Markdown pages, run on every pull
-# request so editorial breakage is caught at review time rather than at
-# deploy: exactly one front-matter block per page, and every internal link
-# resolves to a file or a declared permalink. See TestingStrategy.md.
-# It does not run the Jekyll build; pages.yml still does that on main only.
+# Two jobs, run on every pull request so breakage is caught at review time
+# rather than at deploy. See TestingStrategy.md.
+#
+# - check: a stdlib-Python source check over the Markdown pages: exactly one
+#   front-matter block per page, a recognised normative-status line, every
+#   internal link resolves, the README's ADR table and testing list match
+#   the pages on disk.
+# - build: the same Jekyll build pages.yml runs before deploying, so a bad
+#   Liquid tag or an invalid _config.yml fails the pull request instead of
+#   the deploy of main. It builds against the tracked _data/adm.yml rather
+#   than deriving the version from tags; nothing is uploaded or deployed.
 
 on:
   pull_request:
@@ -31,3 +37,16 @@ jobs:
 
       - name: Run source check
         run: python .github/scripts/check_docs.py
+
+  build:
+    name: Jekyll build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site

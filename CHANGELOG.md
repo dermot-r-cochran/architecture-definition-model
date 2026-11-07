@@ -17,6 +17,7 @@ Version numbers follow [Semantic Versioning](https://semver.org/). While the spe
 - The ADR-index and layer-index links in the Testing Architecture and Traceability Matrix pages now name the index pages, so they resolve on the published site (a bare directory link resolved under the page's own path).
 
 ### Documentation
+- PR checks (7 November 2026): the Jekyll build now runs on every pull request as a second job in `check.yml`, the same build step the deploy uses, so a Liquid or `_config.yml` break fails at review instead of when `main` deploys. `TestingStrategy.md` closes that known gap and now counts two automated checks where it said one. No page changed.
 - Layer pages (`/layers/`, 5 November 2026): each of the ten pages now ends with *See it in use*, linking to that layer in the Overview's running example and to Worked Examples, and for Decisions to the ADR index. Pointers only; no definition, allowed or forbidden text moved.
 - Overview (`/overview/`, 30 October 2026): the running example now carries a *Decisions* section after *Constraints*, so it walks all ten layers of the canonical set it lists instead of stopping at nine. Three decisions, each referencing elements the example already places and defining none. No existing text changed.
 - Main index (26 October 2026): the two normative testing pages (Testing Architecture, Traceability Matrix) now sit under the *Testing Architecture* heading instead of under *Architecture Decision Records*, and the general ADRs 001–004 are listed beside the GenAI ones. Links moved only; no wording changed.

@@ -7,7 +7,9 @@ program.
 
 1. **Testing done *by* this repo** — verifying the ADM specification site
    itself. There is no code here to unit-test; the repository's executable
-   artefact is the Jekyll site, and its one automated check is the build.
+   artefact is the Jekyll site, and its automated checks are two: a source
+   check over the Markdown pages and the Jekyll build, both run on every
+   pull request.
 2. **Testing defined *in* this repo** — the ADM's own testing-architecture
    layer, [`docs/testing/testing-architecture.md`](docs/testing/testing-architecture.md),
    which is a formal architectural artifact governing what confidence means
@@ -23,9 +25,14 @@ against, so this file covers only subject 1.
 - **`.github/workflows/pages.yml`** — on every push to `main` (and manual
   dispatch): derives the ADM version from git tags, builds the site with
   `actions/jekyll-build-pages`, and deploys to GitHub Pages. The Jekyll build
-  is the de facto gate: broken front matter, a bad Liquid tag, or an invalid
+  is the final gate: broken front matter, a bad Liquid tag, or an invalid
   `_config.yml` fails the deploy.
-- **`.github/workflows/check.yml`** — on every pull request: runs
+- **`.github/workflows/check.yml`** — on every pull request, two jobs. The
+  `build` job (added 7 November 2026) runs the same
+  `actions/jekyll-build-pages` step as the deploy, against the tracked
+  `_data/adm.yml` rather than a tag-derived one, and uploads nothing: a
+  Liquid or `_config.yml` break now fails the pull request instead of the
+  deploy of `main`. The `check` job runs
   `.github/scripts/check_docs.py` (stdlib Python, no install) over the
   Markdown sources of every page under `docs/` and `CHANGELOG.md`. It
   asserts that each page opens with exactly one front-matter block (no
@@ -46,9 +53,6 @@ against, so this file covers only subject 1.
   check proves presence and form; whether a page's status is the right one
   stays a judgement, so a new form of the line is a convention change made in
   both places.
-- The Jekyll build itself still does not run on pull requests: a PR that
-  breaks Liquid or `_config.yml` merges green and fails only when `main`
-  tries to deploy.
 
 ## What a spec repo's checks should assert
 
@@ -61,9 +65,11 @@ line; the rest are not caught today.
 
 ## Known gaps (candidates for next)
 
-- **Run the Jekyll build on pull requests**, not just on `main` — the same
-  build step in a PR-triggered job turns deploy-time failures into
-  review-time failures at near-zero cost.
+- ~~Run the Jekyll build on pull requests~~ — **closed 2026-11-07** by the
+  `build` job in `check.yml` above. The original note: **run the Jekyll
+  build on pull requests**, not just on `main` — the same build step in a
+  PR-triggered job turns deploy-time failures into review-time failures at
+  near-zero cost.
 - ~~An internal link checker~~ — **closed 2026-10-06** at the source level by
   `check.yml` above; anchors are still unchecked. The original note:
   **an internal link checker** over the built site (or the Markdown sources)
