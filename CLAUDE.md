@@ -13,10 +13,10 @@ Published in a personal capacity by Dermot Cochran; the copyright is his (Dermot
 Do **not** install Jekyll or run a local build. The site is built entirely by CI:
 
 - `.github/workflows/pages.yml` runs on every push to `main` (and manual dispatch): it derives the ADM version from the latest git tag and **overwrites `_data/adm.yml`** with it, builds with `actions/jekyll-build-pages` (theme `minima`, kramdown, `baseurl: /architecture-definition-model` — see `_config.yml`), and deploys to GitHub Pages.
-- The Jekyll build is the only automated gate: broken front matter, a bad Liquid tag, or an invalid `_config.yml` fails the deploy.
-- On pull requests only a source check runs (`.github/workflows/check.yml`: one front-matter block per page, a recognised normative-status line on every page, internal links resolve, the README's ADR table and testing list match the pages on disk; see `TestingStrategy.md`). Each claim the README makes names the check that proves it, or says "no test yet" — never a check that does not exist. **The Jekyll build does not run on pull requests**: a Liquid or `_config.yml` break merges green and fails only when `main` deploys — keep that in mind before merging anything touching Liquid.
+- The Jekyll build is the final gate: broken front matter, a bad Liquid tag, or an invalid `_config.yml` fails the deploy.
+- On pull requests two jobs run (`.github/workflows/check.yml`; see `TestingStrategy.md`): a source check (one front-matter block per page, a recognised normative-status line on every page, internal links resolve, the README's ADR table and testing list match the pages on disk) and, since 7 November 2026, the same Jekyll build step the deploy uses, built against the tracked `_data/adm.yml` and uploaded nowhere, so a Liquid or `_config.yml` break fails the pull request rather than the deploy of `main`. Each claim the README makes names the check that proves it, or says "no test yet" — never a check that does not exist.
 
-`TestingStrategy.md` covers this in full — what runs, why nothing else does, and the candidate checks (PR builds, an internal link checker, changelog/tag consistency). Read it before adding any check; extend it rather than duplicating its content here.
+`TestingStrategy.md` covers this in full — what runs, why nothing else does, and the candidate checks (changelog/tag consistency, Markdown lint). Read it before adding any check; extend it rather than duplicating its content here.
 
 ## Versioning
 
