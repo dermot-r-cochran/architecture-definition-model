@@ -15,6 +15,7 @@ External actors, users, and systems.
 - External actors
 - User roles
 - External systems
+- External conditions and obligations the system operates under
 
 ## Forbidden Content
 - Internal component decomposition
