@@ -27,6 +27,10 @@ jobs:
         shell: bash
         run: |
           TAG="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+          # Write 0.1.0, not v0.1.0: the same form as the tracked _data/adm.yml,
+          # the CHANGELOG headings and docs/index.md's fallback, so the site
+          # shows the same version whichever build published it.
+          TAG="${TAG#v}"
           if [ -z "$TAG" ]; then
             TAG="0.0.0-unreleased"
           fi

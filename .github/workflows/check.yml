@@ -6,7 +6,10 @@ name: Check docs sources
 # - check: a stdlib-Python source check over the Markdown pages: exactly one
 #   front-matter block per page, a recognised normative-status line, every
 #   internal link resolves, the README's ADR table and testing list match
-#   the pages on disk.
+#   the pages on disk, and (since 12 November 2026) the newest CHANGELOG
+#   release, _data/adm.yml and the tag pages.yml would publish agree. It
+#   checks out full history and tags so `git describe` sees what the deploy
+#   sees; a release whose tag is not yet pushed only warns.
 # - build: the same Jekyll build pages.yml runs before deploying, so a bad
 #   Liquid tag or an invalid _config.yml fails the pull request instead of
 #   the deploy of main. It builds against the tracked _data/adm.yml rather
@@ -29,6 +32,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
