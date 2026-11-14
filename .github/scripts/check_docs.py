@@ -9,7 +9,11 @@ Five checks, all on the sources rather than the built site:
 2. Every internal link resolves: a `{{ site.baseurl }}/...` link must name a
    permalink some page declares, and a relative link must name an existing
    file (jekyll-relative-links rewrites links to .md files; a link to a bare
-   directory is not rewritten and breaks on the published site).
+   directory is not rewritten and breaks on the published site). A link
+   whose target the check cannot read fails, and the summary line counts
+   the internal links checked (both since 14 November 2026; until then the
+   pattern read no target with a space in it, the form every
+   `{{ site.baseurl }}` link takes, so those links passed unchecked).
 3. The README's counts match the disk: its ADR table links every ADR page
    under docs/adr/ (index.md aside) and nothing else, and its Testing
    Architecture list links every page under docs/testing/ and nothing else
@@ -48,7 +52,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 FRONT_KEY = re.compile(r"^(layout|title|permalink)\s*:")
 INLINE_CODE = re.compile(r"`[^`\n]*`")
-LINK = re.compile(r"\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
+# A link's target is either the site.baseurl tag and whatever follows it, or
+# a run of characters with no space. The first form is there because the tag
+# has spaces inside its braces, `{{ site.baseurl }}/overview/`, which is how
+# every permalink link on the site is written.
+LINK = re.compile(r"\]\(\s*<?(\{\{\s*site\.baseurl\s*\}\}[^)\s>]*|[^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 BASEURL = re.compile(r"^\{\{\s*site\.baseurl\s*\}\}")
 SCHEME = re.compile(r"^[a-z][a-z0-9+.-]*:", re.IGNORECASE)
 RELEASE = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)\] - (\d{4}-\d{2}-\d{2})$")
@@ -302,13 +310,22 @@ def main() -> int:
                 errors.append(f"{rel}:{number}: front-matter key '{stray.group(1)}:' outside the front-matter block")
         bodies[page] = [(number, INLINE_CODE.sub("", line)) for number, line in prose]
 
+    checked = 0
     for page, body in bodies.items():
         rel = page.relative_to(ROOT).as_posix()
         for number, line in body:
-            for match in LINK.finditer(line):
+            read = list(LINK.finditer(line))
+            # A link the pattern cannot read must fail, not pass unchecked.
+            if line.count("](") > len(read):
+                errors.append(
+                    f"{rel}:{number}: a link on this line has a target the check cannot read, "
+                    "so it would go unchecked; write it as a plain path or as {{ site.baseurl }}/..."
+                )
+            for match in read:
                 target = match.group(1)
                 if SCHEME.match(target) or target.startswith("#"):
                     continue
+                checked += 1
                 path = target.split("#", 1)[0].split("?", 1)[0]
                 where = f"{rel}:{number}: link {target!r}"
                 if BASEURL.match(path):
@@ -336,7 +353,10 @@ def main() -> int:
             print(f"::warning file=CHANGELOG.md,line={line}::{message}")
         else:
             print(f"warning: CHANGELOG.md:{line}: {message}")
-    print(f"{len(bodies)} pages, {len(permalinks)} permalinks, {compared}, {len(errors)} problem(s)")
+    print(
+        f"{len(bodies)} pages, {len(permalinks)} permalinks, {checked} internal links checked, "
+        f"{compared}, {len(errors)} problem(s)"
+    )
     return 1 if errors else 0
 
 

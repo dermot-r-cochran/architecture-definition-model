@@ -70,7 +70,17 @@ against, so this file covers only subject 1.
   newest release, or no tag at all, only warns, as an annotation on the pull
   request: pushing a release tag is Dermot's call and a desktop step
   (`CLAUDE.md`, *Work that needs the desktop*), and a release pull request is
-  necessarily ahead of its own tag.
+  necessarily ahead of its own tag. Since 14 November 2026 the link check
+  reads the permalink links it was written for. Its pattern read no link
+  target with a space in it, and every permalink link on the site is
+  written with spaces inside the braces of its `site.baseurl` tag; so from
+  6 October to 14 November 2026 a link to a permalink no page declares
+  passed, and only relative links were checked. On 14 November that was 69
+  unchecked of the 142 internal links on the pages the check reads; all 69
+  resolve. The pattern now reads both forms. A link whose target it still
+  cannot read fails instead of passing unchecked, and the summary line
+  counts the internal links checked, so a check that has stopped looking
+  shows in its own output.
 
 ## What a spec repo's checks should assert
 
@@ -90,7 +100,9 @@ today.
   PR-triggered job turns deploy-time failures into review-time failures at
   near-zero cost.
 - ~~An internal link checker~~ — **closed 2026-10-06** at the source level by
-  `check.yml` above; anchors are still unchecked. The original note:
+  `check.yml` above, for relative links only until 14 November 2026, when
+  the permalink links were first read; anchors are still unchecked. The
+  original note:
   **an internal link checker** over the built site (or the Markdown sources)
   — for a document whose value is cross-referenced layers, rules, ADRs and
   case studies, a resolving-links check is the closest thing a spec has to a
