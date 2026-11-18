@@ -4,7 +4,7 @@ Contributions are welcome: corrections, clarifications, examples and proposed de
 
 ## Before you start
 
-- For anything beyond a small fix, open an issue first describing the problem and the change you have in mind, so the approach can be agreed before you spend time on it.
+- For anything beyond a small fix, you may find it useful to open an issue first describing the problem and the change you have in mind, before you spend time on it.
 - Changes must respect ADM layer discipline and semantic rules. A significant change is proposed as an Architecture Decision Record, not made as an implicit edit.
 - Every page opens with its normative-status line. Keep it accurate on a page you change, and give a new page one.
 - Permalinks are citations: don't change one.
@@ -36,4 +36,4 @@ Contributions are accepted under this repository's licences: documentation and e
 
 ## Security
 
-Please don't describe a security problem in a public issue. Open an issue saying only that you have one, and a private way to send the details will be arranged.
+Please don't describe a security problem in a public issue or pull request. Report it privately instead, through the repository's **Security** tab (*Report a vulnerability*). Only the maintainer sees the report.
