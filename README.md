@@ -136,3 +136,7 @@ layer discipline and semantic rules.
 
 Significant changes should be proposed as documented decisions
 (Architecture Decision Records) rather than implicit edits.
+
+[CONTRIBUTING.md](CONTRIBUTING.md) says how to propose a change, what CI
+checks, how a pull request is reviewed, and the licence a contribution
+comes in under.
