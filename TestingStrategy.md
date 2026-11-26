@@ -48,8 +48,9 @@ against, so this file covers only subject 1.
   `{{ site.baseurl }}/...` link to a permalink some page declares, a
   relative link to an existing file. A relative link to a bare directory
   fails, because `jekyll-relative-links` rewrites only links to files and
-  the directory form breaks under the page's own path. Anchors and external
-  links are not checked. Added 2026-10-06. Since 10 October 2026 it also
+  the directory form breaks under the page's own path. External links are
+  not checked, and anchors were not until 26 November 2026 (below). Added
+  2026-10-06. Since 10 October 2026 it also
   fails when the README's ADR table or Testing Architecture list names a
   different set of pages than `docs/adr/` (index aside) or `docs/testing/`
   holds — the README's *What Is Checked* section cites this check, and no
@@ -80,7 +81,28 @@ against, so this file covers only subject 1.
   resolve. The pattern now reads both forms. A link whose target it still
   cannot read fails instead of passing unchecked, and the summary line
   counts the internal links checked, so a check that has stopped looking
-  shows in its own output.
+  shows in its own output. Since 26 November 2026 it also checks a link's
+  anchor: the `#fragment` on a link to a page, or alone for a link within
+  the page, must be the id of a heading on the page the link lands on. On
+  that day 19 of the 142 internal links carried one: ten from the layer
+  pages into the Overview's running example, eight from the general ADRs
+  into the Testing Architecture's numbered sections, and one from Tutorials
+  into the case study. All 19 land. Until then a heading reworded under
+  such a link passed, and the link opened the right page at its top. The
+  ids are derived from the sources by the rule the site's Markdown
+  converter applies (kramdown reading GitHub-flavoured Markdown;
+  `heading_ids` in the script states it). The rule was compared with the
+  published site that day and gave exactly the 280 heading ids its 38 pages
+  carried. Two limits fail closed: only `#` headings that start a line are
+  read, and a heading whose markup could change its id (a double hyphen, an
+  underscore, a link, HTML, an entity, a backslash, a brace) is given none,
+  so an anchor to one fails and the message says why. An anchor on a file
+  that is not a page fails too. One limit fails open: a `#` line the site
+  does not render as a heading under the derived id (inside a `~~~` fence,
+  an HTML comment or a Liquid block that renders nothing, or with a
+  kramdown `{: #id}` line beneath it) still counts as one here, so an
+  anchor naming it would pass. No page has such a line today. The summary
+  line counts the links that carry an anchor.
 
 ## What a spec repo's checks should assert
 
@@ -101,8 +123,8 @@ today.
   near-zero cost.
 - ~~An internal link checker~~ — **closed 2026-10-06** at the source level by
   `check.yml` above, for relative links only until 14 November 2026, when
-  the permalink links were first read; anchors are still unchecked. The
-  original note:
+  the permalink links were first read; anchors were unchecked until
+  26 November 2026. The original note:
   **an internal link checker** over the built site (or the Markdown sources)
   — for a document whose value is cross-referenced layers, rules, ADRs and
   case studies, a resolving-links check is the closest thing a spec has to a

@@ -13,7 +13,20 @@ Five checks, all on the sources rather than the built site:
    whose target the check cannot read fails, and the summary line counts
    the internal links checked (both since 14 November 2026; until then the
    pattern read no target with a space in it, the form every
-   `{{ site.baseurl }}` link takes, so those links passed unchecked).
+   `{{ site.baseurl }}` link takes, so those links passed unchecked). Since
+   26 November 2026 a link's anchor is checked too: `#fragment` on a link
+   to a page, or alone for a link within the page, must be the id of a
+   heading on the page it lands on. The ids are derived from the sources
+   by the rule the site's Markdown converter applies (kramdown reading
+   GitHub-flavoured Markdown; see `heading_ids`), which on that day gave,
+   for every page, exactly the heading ids the published site carried.
+   Only `#` headings starting a line are read, and a heading whose markup
+   could change its id gets none, so an anchor to one fails. A `#` line
+   the site does not render as a heading under the derived id (inside a
+   `~~~` fence, an HTML comment or a Liquid block, or with a kramdown
+   `{: #id}` line beneath it) still counts as one here; no page has one
+   (TestingStrategy.md records the limits). The summary line counts the
+   anchors.
 3. The README's counts match the disk: its ADR table links every ADR page
    under docs/adr/ (index.md aside) and nothing else, and its Testing
    Architecture list links every page under docs/testing/ and nothing else
@@ -36,7 +49,7 @@ Five checks, all on the sources rather than the built site:
    Dermot's call and a desktop step, and the release pull request is
    necessarily ahead of its tag.
 
-External links (http, https, mailto) and in-page anchors are not checked.
+External links (http, https, mailto) are not checked.
 Run from anywhere: python .github/scripts/check_docs.py
 """
 
@@ -46,8 +59,10 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 from datetime import date
 from pathlib import Path
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[2]
 FRONT_KEY = re.compile(r"^(layout|title|permalink)\s*:")
@@ -59,6 +74,12 @@ INLINE_CODE = re.compile(r"`[^`\n]*`")
 LINK = re.compile(r"\]\(\s*<?(\{\{\s*site\.baseurl\s*\}\}[^)\s>]*|[^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 BASEURL = re.compile(r"^\{\{\s*site\.baseurl\s*\}\}")
 SCHEME = re.compile(r"^[a-z][a-z0-9+.-]*:", re.IGNORECASE)
+HEADING = re.compile(r"^#{1,6}[ \t]+(.*)$")
+# Markup that could change which letters, digits or hyphens reach a heading's
+# id: typographic dashes, underscore emphasis, a link's target, HTML, an
+# entity, a backslash escape, Liquid or an explicit {#id}. Other markup is
+# made of characters the id rule drops whether or not it is read as markup.
+ID_NOT_DERIVED = re.compile(r"--|_|\]\(|\]\[|[<&\\{]")
 RELEASE = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)\] - (\d{4}-\d{2}-\d{2})$")
 RELEASE_TAG = re.compile(r"^v(\d+)\.(\d+)\.(\d+)$")
 
@@ -106,6 +127,59 @@ def prose_lines(lines: list[str], first: int) -> list[tuple[int, str]]:
 
 def normalise(url: str) -> str:
     return "/" + url.strip("/") + "/" if url.strip("/") else "/"
+
+
+def heading_ids(prose: list[tuple[int, str]]) -> tuple[set[str], list[int]]:
+    """The ids the published page gives its headings, and the lines of headings given none here.
+
+    The rule is the one kramdown's GitHub-flavoured Markdown parser applies:
+    lower-case the heading's text, drop every character that is not a letter,
+    a mark, a digit, an underscore, a hyphen, a space or a tab, turn each
+    space or tab into a hyphen, and give a repeat of an id already used on
+    the page the suffix -1, -2 and so on.
+    """
+    ids: set[str] = set()
+    not_derived: list[int] = []
+    seen: dict[str, int] = {}
+    for number, line in prose:
+        match = HEADING.match(line)
+        if not match:
+            continue
+        text = re.sub(r"[ \t]#+$", "", match.group(1).rstrip()).rstrip()
+        if not text:
+            continue
+        if ID_NOT_DERIVED.search(text):
+            not_derived.append(number)
+            continue
+        slug = "".join(
+            char
+            for char in text.lower()
+            if char in "- \t" or unicodedata.category(char)[0] in "LM" or unicodedata.category(char) in ("Nd", "Nl", "Pc")
+        )
+        slug = slug.replace(" ", "-").replace("\t", "-")
+        repeat = seen.get(slug, 0)
+        seen[slug] = repeat + 1
+        if slug:
+            ids.add(f"{slug}-{repeat}" if repeat else slug)
+    return ids, not_derived
+
+
+def anchor_problem(landing: Path, fragment: str, anchors: dict[Path, tuple[set[str], list[int]]]) -> str | None:
+    """Why `#fragment` does not land on a heading of the page, or None if it does."""
+    rel = landing.relative_to(ROOT).as_posix() if landing.is_relative_to(ROOT) else landing.as_posix()
+    if landing not in anchors:
+        return f"has an anchor on {rel}, which is not a page the check reads, so the anchor would go unchecked"
+    ids, not_derived = anchors[landing]
+    if fragment in ids:
+        return None
+    problem = f"lands on {rel}, where no heading has the id {fragment!r}"
+    if not_derived:
+        lines = ", ".join(str(number) for number in not_derived)
+        problem += (
+            f"; the check derives no id for the heading(s) at line {lines} there, whose markup "
+            "could change the id, so an anchor to one of them cannot be confirmed"
+        )
+    return problem
 
 
 def status_line(rel: str, lines: list[str], first: int) -> str | None:
@@ -287,8 +361,9 @@ def version_agreement() -> tuple[list[str], list[tuple[int, str]], str]:
 
 def main() -> int:
     errors: list[str] = readme_counts()
-    permalinks: set[str] = set()
+    permalinks: dict[str, Path] = {}
     bodies: dict[Path, list[tuple[int, str]]] = {}
+    anchors: dict[Path, tuple[set[str], list[int]]] = {}
 
     for page in pages():
         rel = page.relative_to(ROOT).as_posix()
@@ -299,7 +374,7 @@ def main() -> int:
             continue
         match = re.search(r"^permalink\s*:\s*(\S+)", front, re.MULTILINE)
         if match:
-            permalinks.add(normalise(match.group(1)))
+            permalinks[normalise(match.group(1))] = page
         status = status_line(rel, lines, first)
         if status:
             errors.append(status)
@@ -309,8 +384,9 @@ def main() -> int:
             if stray:
                 errors.append(f"{rel}:{number}: front-matter key '{stray.group(1)}:' outside the front-matter block")
         bodies[page] = [(number, INLINE_CODE.sub("", line)) for number, line in prose]
+        anchors[page] = heading_ids(prose)
 
-    checked = 0
+    checked = anchored = 0
     for page, body in bodies.items():
         rel = page.relative_to(ROOT).as_posix()
         for number, line in body:
@@ -323,23 +399,38 @@ def main() -> int:
                 )
             for match in read:
                 target = match.group(1)
-                if SCHEME.match(target) or target.startswith("#"):
+                if SCHEME.match(target):
                     continue
                 checked += 1
-                path = target.split("#", 1)[0].split("?", 1)[0]
+                path, _, fragment = target.partition("#")
+                path = path.split("?", 1)[0]
                 where = f"{rel}:{number}: link {target!r}"
+                # The page the link lands on: this one, for a bare #fragment.
+                landing = page
                 if BASEURL.match(path):
-                    if normalise(BASEURL.sub("", path)) not in permalinks:
+                    known = permalinks.get(normalise(BASEURL.sub("", path)))
+                    if known is None:
                         errors.append(f"{where} names no known permalink")
-                    continue
-                if path.startswith("/"):
+                        continue
+                    landing = known
+                elif path.startswith("/"):
                     errors.append(f"{where} is root-absolute; the site serves under a subpath, so use site.baseurl")
                     continue
-                resolved = (page.parent / path).resolve()
-                if resolved.is_dir():
-                    errors.append(f"{where} names a directory, which is not rewritten on the site; link its index.md")
-                elif not resolved.is_file():
-                    errors.append(f"{where} resolves to no file")
+                elif path:
+                    landing = (page.parent / path).resolve()
+                    if landing.is_dir():
+                        errors.append(f"{where} names a directory, which is not rewritten on the site; link its index.md")
+                        continue
+                    if not landing.is_file():
+                        errors.append(f"{where} resolves to no file")
+                        continue
+                fragment = unquote(fragment)
+                if not fragment:
+                    continue
+                anchored += 1
+                problem = anchor_problem(landing, fragment, anchors)
+                if problem:
+                    errors.append(f"{where} {problem}")
 
     agreement, warnings, compared = version_agreement()
     errors += agreement
@@ -355,6 +446,7 @@ def main() -> int:
             print(f"warning: CHANGELOG.md:{line}: {message}")
     print(
         f"{len(bodies)} pages, {len(permalinks)} permalinks, {checked} internal links checked, "
+        f"{anchored} of them to an anchor, "
         f"{compared}, {len(errors)} problem(s)"
     )
     return 1 if errors else 0
